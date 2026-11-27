@@ -1,0 +1,24 @@
+{
+  "name": "vendo",
+  "version": "1.0.0",
+  "description": "Advertising engine for ordinary users: learn advertising and launch campaigns on Meta, Google Ads, TikTok, LinkedIn and Pinterest from one place.",
+  "main": "src/server.js",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "start": "node --no-warnings=ExperimentalWarning src/server.js",
+    "dev": "node --no-warnings=ExperimentalWarning --watch src/server.js",
+    "test": "node --no-warnings=ExperimentalWarning --test test/*.test.js",
+    "build:pages": "node web/build.js"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@noble/ciphers": "^1.3.0",
+    "@noble/hashes": "^1.8.0",
+    "buffer": "^6.0.3",
+    "esbuild": "^0.25.10",
+    "sql.js": "^1.13.0"
+  }
+}

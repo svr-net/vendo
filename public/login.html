@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign in – Vendo</title>
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<header id="nav"></header>
+<main class="container" style="max-width:440px">
+  <div class="card">
+    <div class="row" style="margin-bottom:16px">
+      <button class="btn btn-sm" data-tab="login">Sign in</button>
+      <button class="btn btn-sm" data-tab="signup">Create account</button>
+    </div>
+    <form id="form">
+      <div class="field signup-only"><label for="name">Your name</label><input id="name" name="name" type="text" autocomplete="name"></div>
+      <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" required autocomplete="email"></div>
+      <div class="field"><label for="password">Password</label><input id="password" name="password" type="password" required minlength="8" autocomplete="current-password"><div class="hint signup-only">At least 8 characters.</div></div>
+      <div id="err" class="alert bad hidden"></div>
+      <button class="btn btn-primary" style="width:100%" id="submit">Sign in</button>
+    </form>
+  </div>
+  <p class="hint" style="text-align:center;margin-top:16px">Your ad platform tokens are encrypted at rest and only used to manage campaigns you create in Vendo.</p>
+</main>
+<script type="module">
+  import { api, mountNav } from './js/common.js';
+  mountNav();
+  let mode = location.hash === '#signup' ? 'signup' : 'login';
+  const next = new URLSearchParams(location.search).get('next') || 'campaigns/new';
+  const render = () => {
+    document.querySelectorAll('[data-tab]').forEach((b) => b.classList.toggle('btn-primary', b.dataset.tab === mode));
+    document.querySelectorAll('.signup-only').forEach((el) => el.classList.toggle('hidden', mode !== 'signup'));
+    document.getElementById('submit').textContent = mode === 'signup' ? 'Create account' : 'Sign in';
+    document.getElementById('password').autocomplete = mode === 'signup' ? 'new-password' : 'current-password';
+  };
+  document.querySelectorAll('[data-tab]').forEach((b) => b.addEventListener('click', () => { mode = b.dataset.tab; render(); }));
+  document.getElementById('form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const err = document.getElementById('err');
+    err.classList.add('hidden');
+    const body = Object.fromEntries(new FormData(e.target));
+    try {
+      await api(`/api/auth/${mode}`, { method: 'POST', body });
+      location.href = next.startsWith('//') || /^[a-z][a-z0-9+.-]*:/i.test(next) ? './' : next;
+    } catch (ex) { err.textContent = ex.message; err.classList.remove('hidden'); }
+  });
+  render();
+</script>
+</body>
+</html>

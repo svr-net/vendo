@@ -19,8 +19,6 @@
     window.__vendoReady.catch(function () {});
     return;
   }
-  banner('Demo build: Vendo runs entirely in your browser (SQLite as WebAssembly). Your data stays on this device, and platforms run in sandbox mode. ' +
-    '<a href="https://github.com/svr-net/vendo#quick-start" style="color:inherit">Run the server version</a> to launch real campaigns.');
   window.__vendoReady = navigator.serviceWorker.register(base + 'sw.js', { scope: base }).then(function () {
     if (navigator.serviceWorker.controller) return;
     return new Promise(function (resolve) {

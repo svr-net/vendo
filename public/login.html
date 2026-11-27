@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Sign in – Vendo</title>
-  <link rel="stylesheet" href="/css/app.css">
+  <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
 <header id="nav"></header>
@@ -25,10 +26,10 @@
   <p class="hint" style="text-align:center;margin-top:16px">Your ad platform tokens are encrypted at rest and only used to manage campaigns you create in Vendo.</p>
 </main>
 <script type="module">
-  import { api, mountNav } from '/js/common.js';
+  import { api, mountNav } from './js/common.js';
   mountNav();
   let mode = location.hash === '#signup' ? 'signup' : 'login';
-  const next = new URLSearchParams(location.search).get('next') || '/campaigns/new';
+  const next = new URLSearchParams(location.search).get('next') || 'campaigns/new';
   const render = () => {
     document.querySelectorAll('[data-tab]').forEach((b) => b.classList.toggle('btn-primary', b.dataset.tab === mode));
     document.querySelectorAll('.signup-only').forEach((el) => el.classList.toggle('hidden', mode !== 'signup'));
@@ -43,7 +44,7 @@
     const body = Object.fromEntries(new FormData(e.target));
     try {
       await api(`/api/auth/${mode}`, { method: 'POST', body });
-      location.href = next.startsWith('/') && !next.startsWith('//') ? next : '/';
+      location.href = next.startsWith('//') || /^[a-z][a-z0-9+.-]*:/i.test(next) ? './' : next;
     } catch (ex) { err.textContent = ex.message; err.classList.remove('hidden'); }
   });
   render();

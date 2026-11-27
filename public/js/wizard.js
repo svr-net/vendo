@@ -15,31 +15,31 @@ const COACH = {
     'Choose the goal that matches what you <strong>really</strong> want. Platforms optimise for exactly what you pick.',
     'Leads and sales goals work best with a tracking pixel/tag on your website. If you don\'t have one yet, start with Traffic.',
     'Give the campaign a name you\'ll recognise later, e.g. "Spring sale – US – Nov".',
-    '<a href="/learn#goals">Lesson: Pick the right goal →</a>',
+    '<a href="learn#goals">Lesson: Pick the right goal →</a>',
   ],
   platforms: [
     'Small budget? Pick <strong>one or two</strong> platforms. Each needs enough data to learn.',
     'Platforms you haven\'t connected run in <strong>sandbox</strong>: a safe simulation for learning.',
-    '<a href="/learn#platforms">Lesson: Choosing platforms →</a>',
+    '<a href="learn#platforms">Lesson: Choosing platforms →</a>',
   ],
   audience: [
     'Go broad. Modern algorithms find buyers within large audiences better than manual narrowing.',
     'Only add an age range if your product truly is for that group.',
     'Google keywords: write them how customers search ("emergency plumber london"), 5–20 per campaign.',
-    '<a href="/learn#audience">Lesson: Targeting →</a>',
+    '<a href="learn#audience">Lesson: Targeting →</a>',
   ],
   budget: [
     'Rule of thumb: daily budget ≈ 50 × target cost per result ÷ 7 lets algorithms exit the learning phase within a week.',
     'Use <strong>Recommended split</strong> to divide the budget based on your goal.',
     'Forecasts use industry averages. Treat them as a ballpark, not a promise.',
-    '<a href="/learn#budget">Lesson: Budgets & bidding →</a>',
+    '<a href="learn#budget">Lesson: Budgets & bidding →</a>',
   ],
   creative: [
     'Hook → benefit → proof → call to action.',
     'Google needs 3–15 headlines (30 chars each). Write different angles: price, benefit, brand, offer.',
     'Use your own photos or video where possible. Authentic beats stock.',
     'TikTok requires vertical video (9:16). Pinterest loves vertical 2:3 images.',
-    '<a href="/learn#creative">Lesson: Ads people stop for →</a>',
+    '<a href="learn#creative">Lesson: Ads people stop for →</a>',
   ],
   review: [
     'Open each step under "What Vendo will create" to see the exact API request and why it is needed.',
@@ -101,7 +101,7 @@ const R = {
   platforms() {
     return `
     <h2>Where should your ads run?</h2>
-    <p class="muted">Pick one or more. <a href="/connect">Manage connections →</a></p>
+    <p class="muted">Pick one or more. <a href="connect">Manage connections →</a></p>
     <div class="choice-grid">${ref.platforms.map((p) => {
       const m = modeOf(p.id);
       return `<label class="choice"><input type="checkbox" value="${p.id}" data-list="platforms" ${spec.platforms.includes(p.id) ? 'checked' : ''}>
@@ -310,7 +310,7 @@ async function persist(launch) {
     editId = campaign.id;
     if (launch) await api(`/api/campaigns/${campaign.id}/launch`, { method: 'POST' });
     try { localStorage.removeItem(DRAFT_KEY); } catch { /* ignore */ }
-    location.href = `/campaigns/${campaign.id}${launch ? '?launched=1' : ''}`;
+    location.href = `campaigns/${campaign.id}${launch ? '?launched=1' : ''}`;
   } catch (e) {
     toast(e.message, 'bad');
     btn.disabled = false;
@@ -435,7 +435,7 @@ function bind(root) {
   if (liveCurrency && !source) spec.budget.currency = liveCurrency;
   document.getElementById('reset').addEventListener('click', () => {
     if (!confirm('Clear the form and start over?')) return;
-    spec = blank(); editId = null; stepIdx = 0; saveDraft(); history.replaceState(null, '', '/campaigns/new'); render();
+    spec = blank(); editId = null; stepIdx = 0; saveDraft(); history.replaceState(null, '', 'campaigns/new'); render();
   });
   render();
 })();

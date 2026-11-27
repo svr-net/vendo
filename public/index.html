@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Vendo – advertising made understandable</title>
   <meta name="description" content="Learn online advertising and launch real campaigns on Meta, Google, TikTok, LinkedIn and Pinterest from one simple place.">
-  <link rel="stylesheet" href="/css/app.css">
+  <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
 <header id="nav"></header>
@@ -16,8 +17,8 @@
       <h1 style="margin-top:12px">Learn how online ads work.<br>Then launch your own — everywhere at once.</h1>
       <p class="lead">Vendo explains advertising in plain language and turns one simple brief into real campaigns on Facebook &amp; Instagram, Google Search, TikTok, LinkedIn and Pinterest. Practise risk-free in sandbox mode, then go live when you're ready.</p>
       <div class="row">
-        <a class="btn btn-primary btn-lg" href="/campaigns/new">Create a campaign</a>
-        <a class="btn btn-lg" href="/learn">Start learning</a>
+        <a class="btn btn-primary btn-lg" href="campaigns/new">Create a campaign</a>
+        <a class="btn btn-lg" href="learn">Start learning</a>
       </div>
     </div>
     <div class="card">
@@ -58,13 +59,13 @@
         <h2>Transparent by design</h2>
         <p class="muted" style="max-width:720px">Before launch, Vendo shows the exact API requests it will send to each platform, with an explanation of each one. You learn how professional ad tools work while you build your campaign, and nothing is hidden.</p>
       </div>
-      <a class="btn btn-primary" href="/campaigns/new">Try it in sandbox mode</a>
+      <a class="btn btn-primary" href="campaigns/new">Try it in sandbox mode</a>
     </div>
   </section>
 </main>
 <footer class="site">Vendo · Open-source advertising engine · Not affiliated with Meta, Google, TikTok, LinkedIn or Pinterest.</footer>
 <script type="module">
-  import { mountNav, reference, platformIcon, esc } from '/js/common.js';
+  import { mountNav, reference, platformIcon, esc } from './js/common.js';
   mountNav('home');
   reference().then((ref) => {
     document.getElementById('fit').innerHTML = ref.platforms.map((p) => `

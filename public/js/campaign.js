@@ -70,13 +70,13 @@ function render() {
   document.title = `${c.name} – Vendo`;
   root.innerHTML = `
     <div class="row spread">
-      <div><a href="/campaigns" class="muted">← My campaigns</a><h1 style="margin-top:6px">${esc(c.name)}</h1>
+      <div><a href="campaigns" class="muted">← My campaigns</a><h1 style="margin-top:6px">${esc(c.name)}</h1>
         <div class="row">${statusBadge(c.status)}<span class="badge">${esc(ref.goals[c.goal]?.label || c.goal)}</span><span class="badge">${fmt.money(c.spec.budget.daily, cur)}/day</span><span class="badge">${esc(c.spec.audience.countries.join(', '))}</span></div></div>
       <div class="row">
         ${c.deployments.length ? '<button class="btn" id="sync">↻ Refresh results</button>' : ''}
         ${failed || notLaunched.length ? `<button class="btn btn-primary" id="launch">${c.deployments.length ? 'Retry launch' : '🚀 Launch'}</button>` : ''}
-        ${editable ? `<a class="btn" href="/campaigns/new?edit=${c.id}">Edit</a>` : ''}
-        <a class="btn" href="/campaigns/new?from=${c.id}">Duplicate</a>
+        ${editable ? `<a class="btn" href="campaigns/new?edit=${c.id}">Edit</a>` : ''}
+        <a class="btn" href="campaigns/new?from=${c.id}">Duplicate</a>
         <button class="btn btn-danger btn-sm" id="delete">Delete</button>
       </div>
     </div>
@@ -87,7 +87,7 @@ function render() {
       <li>Give new campaigns <strong>3–7 days</strong> before judging them; the first days are a learning phase.</li>
       <li>Check comments on your ads (Meta, TikTok, LinkedIn): replying builds trust and improves performance.</li>
       <li>Winning? Raise budget ~20–30% every few days. Losing? Change <strong>one</strong> thing: usually the creative first.</li>
-      <li><a href="/learn#metrics">Lesson: Reading your results →</a></li>
+      <li><a href="learn#metrics">Lesson: Reading your results →</a></li>
     </ul></div>`;
 
   root.querySelector('#sync')?.addEventListener('click', () => sync(true));
@@ -101,7 +101,7 @@ function render() {
     const live = c.deployments.some((d) => d.mode === 'live' && ['active', 'paused'].includes(d.status));
     if (!confirm(live ? 'Delete from Vendo? Live campaigns are NOT deleted on the platforms. Pause them first if you want them to stop.' : 'Delete this campaign?')) return;
     await api(`/api/campaigns/${id}`, { method: 'DELETE' });
-    location.href = '/campaigns';
+    location.href = 'campaigns';
   });
   root.querySelectorAll('[data-toggle]').forEach((t) => t.addEventListener('change', async () => {
     const depId = t.closest('[data-dep]').dataset.dep;

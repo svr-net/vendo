@@ -30,7 +30,7 @@ Vendo teaches non-experts how online advertising works and lets them launch **re
 
 ## Quick start
 
-Requires **Node.js ≥ 22.13**. There are no npm dependencies (it uses the built-in `node:sqlite`, `node:http` and `fetch`).
+Requires **Node.js ≥ 22.13**. There are no runtime npm dependencies (it uses the built-in `node:sqlite`, `node:http` and `fetch`).
 
 ```bash
 cp .env.example .env        # set APP_SECRET; platform keys are optional
@@ -41,6 +41,24 @@ npm test                    # 23 tests: engine, all 5 platform adapters (mocked 
 With no platform credentials configured, every platform runs in **sandbox mode**. Launches are simulated, no network calls are made, and realistic metrics build up over time (sandbox time runs 120× faster). This is the best way to explore the product.
 
 To go live, follow **[docs/PLATFORM_SETUP.md](docs/PLATFORM_SETUP.md)** to create a developer app on each platform and put its keys in `.env`.
+
+## Browser version on GitHub Pages (WebAssembly)
+
+Vendo also runs **entirely in the browser**, so it can be hosted on GitHub Pages with no server:
+
+- The **same server code** (router, API routes, campaign engine, platform adapters, validation) is bundled with esbuild and runs inside a **Service Worker**, which answers the pages' `/api/*` requests.
+- `node:sqlite` is replaced by **SQLite compiled to WebAssembly** ([sql.js](https://sql.js.org)). The database, uploads and session are kept in IndexedDB on the visitor's device.
+- The other Node built-ins it uses are swapped for small browser versions in `web/shims/`: `fs` (in memory), `path`, and `crypto` (scrypt/AES-GCM/SHA-256 via `@noble/*`).
+- **Only sandbox mode is available** in this version. Connecting real ad accounts needs the server version, because OAuth client secrets cannot be published to a static site and the ad APIs don't accept browser requests.
+
+```bash
+npm install                 # build-time tools only (esbuild, sql.js, @noble/*, buffer)
+PAGES_BASE=/vendo/ npm run build:pages   # → dist-pages/
+```
+
+**Deploying:** the workflow `.github/workflows/pages.yml` builds and publishes on every push to `main`. One-time setup: *Settings → Pages → Build and deployment → Source: **GitHub Actions***. The site is then available at `https://<owner>.github.io/<repo>/`.
+
+Strictly speaking, Node.js itself is not compiled to WebAssembly here: Vendo's JavaScript runs on the browser's own engine, and the native part (SQLite) is WebAssembly. That gives the same behaviour with a small download (≈ 210 KB of JavaScript plus a 650 KB `.wasm` file) and no special server headers. Running a full Node.js runtime in WebAssembly (e.g. WebContainers) would need cross-origin isolation headers that GitHub Pages cannot set, and commercial use of WebContainers requires a license from StackBlitz.
 
 ## Architecture
 
@@ -60,6 +78,7 @@ src/
   platforms/            One adapter per platform: OAuth, accounts, assets, plan(), setStatus(), fetchMetrics()
   routes/               JSON API + OAuth callbacks
 test/                   node:test suites
+web/                    Browser build: Service Worker entry, Node shims, boot script, build script
 ```
 
 The core idea is that **each adapter returns a plan**: an ordered list of steps (`method`, `url`, `body(refs)`, `extract(response)`, `explain`). The same plan is used three ways:

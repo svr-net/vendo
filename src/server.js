@@ -18,15 +18,7 @@ function createServer() {
   const handler = createHandler({
     router,
     staticDirs: [['/uploads/', config.uploadsDir], ['/', path.join(__dirname, '..', 'public')]],
-    // Clean page URLs → HTML files
-    pageAliases: {
-      '^/learn/?$': '/learn.html',
-      '^/connect/?$': '/connect.html',
-      '^/login/?$': '/login.html',
-      '^/campaigns/?$': '/campaigns.html',
-      '^/campaigns/new/?$': '/new.html',
-      '^/campaigns/cmp_[^/]+/?$': '/campaign.html',
-    },
+    pageAliases: require('./pages'),
   });
   return http.createServer(handler);
 }

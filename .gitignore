@@ -72,3 +72,4 @@ node_modules/
 .env
 data/*.db*
 data/uploads/
+dist-pages/

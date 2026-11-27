@@ -2,7 +2,9 @@
 export const PLATFORM_LETTER = { meta: 'f', google: 'G', tiktok: '♪', linkedin: 'in', pinterest: 'P' };
 
 export async function api(path, { method = 'GET', body } = {}) {
-  const res = await fetch(path, {
+  // On GitHub Pages the API runs inside a Service Worker (see web/); wait until it controls the page.
+  if (window.__vendoReady) await window.__vendoReady;
+  const res = await fetch(path.replace(/^\//, ''), {
     method,
     headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'vendo', Accept: 'application/json' },
     body: body === undefined ? undefined : JSON.stringify(body),
@@ -11,7 +13,7 @@ export async function api(path, { method = 'GET', body } = {}) {
   const data = await res.json().catch(() => ({}));
   if (!res.ok) {
     if (res.status === 401 && !path.startsWith('/api/auth')) {
-      location.href = `/login?next=${encodeURIComponent(location.pathname + location.search)}`;
+      location.href = `login?next=${encodeURIComponent(location.pathname + location.search)}`;
     }
     const err = new Error(data.error || `Request failed (${res.status})`);
     err.status = res.status;
@@ -62,7 +64,7 @@ export async function currentUser() {
 
 export async function requireLogin() {
   const user = await currentUser();
-  if (!user) { location.href = `/login?next=${encodeURIComponent(location.pathname + location.search)}`; throw new Error('redirecting'); }
+  if (!user) { location.href = `login?next=${encodeURIComponent(location.pathname + location.search)}`; await new Promise(() => {}); }
   return user;
 }
 
@@ -74,18 +76,18 @@ export async function mountNav(active) {
   const link = (href, label, key) => `<a href="${href}" class="${active === key ? 'active' : ''}">${label}</a>`;
   el.className = 'nav';
   el.innerHTML = `<div class="nav-inner">
-    <a class="logo" href="/"><span class="logo-mark">V</span>Vendo</a>
+    <a class="logo" href="./"><span class="logo-mark">V</span>Vendo</a>
     <nav class="nav-links">
-      ${link('/learn', 'Learn', 'learn')}
-      ${link('/connect', 'Connect', 'connect')}
-      ${link('/campaigns/new', 'New campaign', 'new')}
-      ${link('/campaigns', 'My campaigns', 'campaigns')}
+      ${link('learn', 'Learn', 'learn')}
+      ${link('connect', 'Connect', 'connect')}
+      ${link('campaigns/new', 'New campaign', 'new')}
+      ${link('campaigns', 'My campaigns', 'campaigns')}
     </nav>
     <div class="nav-user">${user
     ? `<span class="muted">${esc(user.name)}</span><button class="btn btn-sm" id="logout">Sign out</button>`
-    : '<a class="btn btn-sm" href="/login">Sign in</a><a class="btn btn-sm btn-primary" href="/login#signup">Get started</a>'}</div>
+    : '<a class="btn btn-sm" href="login">Sign in</a><a class="btn btn-sm btn-primary" href="login#signup">Get started</a>'}</div>
   </div>`;
-  el.querySelector('#logout')?.addEventListener('click', async () => { await api('/api/auth/logout', { method: 'POST' }); location.href = '/'; });
+  el.querySelector('#logout')?.addEventListener('click', async () => { await api('/api/auth/logout', { method: 'POST' }); location.href = './'; });
   return user;
 }
 

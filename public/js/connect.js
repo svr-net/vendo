@@ -38,7 +38,7 @@ const params = new URLSearchParams(location.search);
 const flash = document.getElementById('flash');
 if (params.get('connected')) flash.innerHTML = `<div class="alert good"><strong>${esc(params.get('connected'))} connected.</strong> Now choose the ad account and assets below.</div>`;
 if (params.get('error')) flash.innerHTML = `<div class="alert bad"><strong>Connection failed</strong>${esc(params.get('error'))}</div>`;
-if (params.size) history.replaceState(null, '', '/connect');
+if (params.size) history.replaceState(null, '', 'connect');
 
 let ref;
 
@@ -54,7 +54,7 @@ function card(c) {
   const p = ref.platforms.find((x) => x.id === c.platform);
   const conn = c.connection;
   const connectBtn = c.configured
-    ? `<a class="btn btn-primary" href="/oauth/${c.platform}/start">${conn?.mode === 'live' ? 'Reconnect' : `Connect ${esc(p.name)}`}</a>`
+    ? `<a class="btn btn-primary" href="oauth/${c.platform}/start">${conn?.mode === 'live' ? 'Reconnect' : `Connect ${esc(p.name)}`}</a>`
     : `<button class="btn" disabled title="Server not configured for ${esc(p.name)}">Connect (setup required)</button>`;
   return `
   <div class="card" data-platform="${c.platform}">

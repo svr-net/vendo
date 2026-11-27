@@ -90,7 +90,7 @@ function wireWidgets() {
 
 function renderNav(activeId) {
   document.getElementById('lesson-nav').innerHTML = LESSONS.map((l, i) => `
-    <a href="#${l.id}" class="${l.id === activeId ? 'active' : ''} ${done.has(l.id) ? 'done' : ''}">
+    <a href="learn#${l.id}" class="${l.id === activeId ? 'active' : ''} ${done.has(l.id) ? 'done' : ''}">
       <span class="check"></span><span>${i + 1}. ${esc(l.title)}<br><small>${l.minutes} min</small></span>
     </a>`).join('');
   const pct = Math.round((done.size / LESSONS.length) * 100);
@@ -116,7 +116,7 @@ function renderLesson(id) {
     </div>
     <div class="row spread" style="margin-top:24px">
       <span class="muted" id="quiz-status"></span>
-      ${next ? `<a class="btn btn-primary" href="#${next.id}">Next: ${esc(next.title)} →</a>` : '<a class="btn btn-primary" href="/campaigns/new">Build your first campaign →</a>'}
+      ${next ? `<a class="btn btn-primary" href="learn#${next.id}">Next: ${esc(next.title)} →</a>` : '<a class="btn btn-primary" href="campaigns/new">Build your first campaign →</a>'}
     </div>`;
   const answered = new Set();
   el.querySelectorAll('.q').forEach((qEl) => {

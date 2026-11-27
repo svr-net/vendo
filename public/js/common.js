@@ -84,7 +84,7 @@ export async function mountNav(active) {
       ${link('campaigns', 'My campaigns', 'campaigns')}
     </nav>
     <div class="nav-user">${user
-    ? `<span class="muted">${esc(user.name)}</span><button class="btn btn-sm" id="logout">Sign out</button>`
+    ? `<span class="avatar" title="${esc(user.email)}">${esc((user.name || '?')[0].toUpperCase())}</span><button class="btn btn-sm btn-ghost" id="logout">Sign out</button>`
     : '<a class="btn btn-sm" href="login">Sign in</a><a class="btn btn-sm btn-primary" href="login#signup">Get started</a>'}</div>
   </div>`;
   el.querySelector('#logout')?.addEventListener('click', async () => { await api('/api/auth/logout', { method: 'POST' }); location.href = './'; });

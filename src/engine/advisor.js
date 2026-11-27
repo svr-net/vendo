@@ -119,7 +119,10 @@ function insights({ platform, goal, metrics, dailyBudget, active }) {
       : 'The campaign is paused. Activate it to start delivering — nothing is spent while paused.');
     return out;
   }
-  if (k.impressions < 1000) add('info', 'Too early to judge', `Only ${k.impressions} impressions so far. Wait for at least 1,000 impressions (ideally a few days) before changing anything.`);
+  if (k.impressions < 1000) {
+    add('info', 'Too early to judge', `Only ${k.impressions} impressions so far. Wait for at least 1,000 impressions (ideally a few days) before changing anything.`);
+    return out;
+  }
 
   if (k.ctr >= b.ctr * 1.2) add('good', `Strong click-through rate (${round(k.ctr)}%)`, `Above the typical ${b.ctr}% for ${b.label}. Your ad resonates — consider raising the budget by 20–30% every few days.`);
   else if (k.ctr < b.ctr * 0.6) add('warn', `Low click-through rate (${round(k.ctr)}%)`, `Typical for ${b.label} is about ${b.ctr}%. Test a new image or video and a clearer headline that states the benefit. The first 3 seconds / first line matter most.`);

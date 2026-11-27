@@ -124,7 +124,11 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(serveUpload(rel));
   } else if (event.request.mode === 'navigate' && url.pathname.startsWith(scope.pathname)) {
     const page = Object.entries(pages).find(([re]) => new RegExp(re).test(rel));
-    if (page) event.respondWith(fetch(new URL(page[1].slice(1), scope).href));
+    if (page) event.respondWith(fetch(new URL(page[1].slice(1), scope).href, { cache: 'no-cache' }));
+  } else if (event.request.method === 'GET' && url.pathname.startsWith(scope.pathname)) {
+    // GitHub Pages lets browsers cache files for 10 minutes. Revalidate instead (a cheap 304 when
+    // unchanged), so a new deploy shows up on the next page load.
+    event.respondWith(fetch(event.request, { cache: 'no-cache' }));
   }
 });
 

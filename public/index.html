@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vendo – advertising made understandable</title>
+  <meta name="description" content="Learn online advertising and launch real campaigns on Meta, Google, TikTok, LinkedIn and Pinterest from one simple place.">
+  <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+<header id="nav"></header>
+<main class="container">
+  <section class="hero">
+    <div>
+      <span class="badge brand">Advertising for everyone</span>
+      <h1 style="margin-top:12px">Learn how online ads work.<br>Then launch your own — everywhere at once.</h1>
+      <p class="lead">Vendo explains advertising in plain language and turns one simple brief into real campaigns on Facebook &amp; Instagram, Google Search, TikTok, LinkedIn and Pinterest. Practise risk-free in sandbox mode, then go live when you're ready.</p>
+      <div class="row">
+        <a class="btn btn-primary btn-lg" href="/campaigns/new">Create a campaign</a>
+        <a class="btn btn-lg" href="/learn">Start learning</a>
+      </div>
+    </div>
+    <div class="card">
+      <h3>One brief → five platforms</h3>
+      <p class="muted">You describe your goal, budget, audience and ad once. Vendo translates it into each platform's own structure:</p>
+      <div class="table-wrap"><table class="forecast-table">
+        <thead><tr><th>Platform</th><th>What Vendo creates</th></tr></thead>
+        <tbody>
+          <tr><td><span class="pill-meta">●</span> Meta</td><td>Campaign → Ad set → Creative → Ad</td></tr>
+          <tr><td><span class="pill-google">●</span> Google Ads</td><td>Budget → Search campaign → Ad group → Keywords → Responsive ad</td></tr>
+          <tr><td><span class="pill-tiktok">●</span> TikTok</td><td>Video → Identity → Campaign → Ad group → Ad</td></tr>
+          <tr><td><span class="pill-linkedin">●</span> LinkedIn</td><td>Campaign group → Campaign → Sponsored post → Creative</td></tr>
+          <tr><td><span class="pill-pinterest">●</span> Pinterest</td><td>Pin → Campaign → Ad group → Ad</td></tr>
+        </tbody>
+      </table></div>
+      <p class="hint">Everything is created <strong>paused</strong> by default. You decide when money starts being spent.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>How it works</h2>
+    <div class="steps">
+      <div class="card"><h3>Learn the basics</h3><p class="muted">Short lessons on goals, budgets, targeting, creative and metrics, with calculators and quizzes.</p></div>
+      <div class="card"><h3>Connect your accounts</h3><p class="muted">Sign in to each ad platform securely (OAuth). Or use sandbox mode to practise with simulated accounts.</p></div>
+      <div class="card"><h3>Build &amp; preview</h3><p class="muted">A guided wizard with a coach, live ad previews, budget forecasts and checks against each platform's rules.</p></div>
+      <div class="card"><h3>Launch &amp; improve</h3><p class="muted">Launch in one click, see every API call Vendo makes, track results and get plain-language advice.</p></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Which platform is right for you?</h2>
+    <div class="grid grid-5" id="fit"></div>
+  </section>
+
+  <section class="section card">
+    <div class="row spread">
+      <div>
+        <h2>Transparent by design</h2>
+        <p class="muted" style="max-width:720px">Before launch, Vendo shows the exact API requests it will send to each platform, with an explanation of each one. You learn how professional ad tools work while you build your campaign, and nothing is hidden.</p>
+      </div>
+      <a class="btn btn-primary" href="/campaigns/new">Try it in sandbox mode</a>
+    </div>
+  </section>
+</main>
+<footer class="site">Vendo · Open-source advertising engine · Not affiliated with Meta, Google, TikTok, LinkedIn or Pinterest.</footer>
+<script type="module">
+  import { mountNav, reference, platformIcon, esc } from '/js/common.js';
+  mountNav('home');
+  reference().then((ref) => {
+    document.getElementById('fit').innerHTML = ref.platforms.map((p) => `
+      <div class="card"><div class="row">${platformIcon(p.id)}<div><strong>${esc(p.name)}</strong><br><small>${esc(p.products)}</small></div></div>
+      <p style="margin-top:12px;font-size:.93rem">${esc(ref.fit[p.id])}</p>
+      <small>Avg. cost per click ≈ $${ref.benchmarks[p.id].cpc}</small></div>`).join('');
+  });
+</script>
+</body>
+</html>

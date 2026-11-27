@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My campaigns – Vendo</title>
+  <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+<header id="nav"></header>
+<main class="container">
+  <div class="row spread">
+    <h1>My campaigns</h1>
+    <a class="btn btn-primary" href="/campaigns/new">+ New campaign</a>
+  </div>
+  <div id="summary" class="kpis" style="margin:16px 0"></div>
+  <div id="list"><span class="spinner"></span></div>
+</main>
+<script type="module">
+  import { api, mountNav, requireLogin, esc, fmt, statusBadge, platformIcon } from '/js/common.js';
+  await requireLogin();
+  mountNav('campaigns');
+  const { campaigns } = await api('/api/campaigns');
+  const list = document.getElementById('list');
+  if (!campaigns.length) {
+    list.innerHTML = `<div class="card empty"><h2>No campaigns yet</h2><p>Build your first campaign in a few minutes. Try it in sandbox mode, no money needed.</p><a class="btn btn-primary" href="/campaigns/new">Create a campaign</a></div>`;
+  } else {
+    const t = campaigns.reduce((a, c) => { for (const k of ['impressions', 'clicks', 'spend', 'conversions']) a[k] += c.totals?.[k] || 0; return a; }, { impressions: 0, clicks: 0, spend: 0, conversions: 0 });
+    const kpi = (l, v) => `<div class="kpi"><div class="l">${l}</div><div class="v">${v}</div></div>`;
+    document.getElementById('summary').innerHTML = kpi('Campaigns', campaigns.length) + kpi('Active', campaigns.filter((c) => c.status === 'active').length) + kpi('Impressions', fmt.num(t.impressions)) + kpi('Clicks', fmt.num(t.clicks)) + kpi('Spend', fmt.money(t.spend)) + kpi('Conversions', fmt.num(t.conversions));
+    list.innerHTML = `<div class="card"><div class="table-wrap"><table class="forecast-table"><thead><tr><th>Campaign</th><th>Platforms</th><th>Status</th><th>Budget/day</th><th>Clicks</th><th>Spend</th><th>Created</th></tr></thead><tbody>
+      ${campaigns.map((c) => `<tr><td><a href="/campaigns/${c.id}"><strong>${esc(c.name)}</strong></a><br><small class="muted">${esc(c.goal)}</small></td>
+        <td><div class="row mini" style="gap:4px">${c.spec.platforms.map(platformIcon).join('')}</div></td>
+        <td>${statusBadge(c.status)}${c.deployments.some((d) => d.mode === 'sandbox') ? ' <span class="badge info">sandbox</span>' : ''}</td>
+        <td>${fmt.money(c.spec.budget.daily, c.spec.budget.currency)}</td><td>${fmt.num(c.totals.clicks)}</td><td>${fmt.money(c.totals.spend, c.spec.budget.currency)}</td><td><small>${fmt.date(c.createdAt)}</small></td></tr>`).join('')}
+    </tbody></table></div></div>`;
+  }
+</script>
+</body>
+</html>

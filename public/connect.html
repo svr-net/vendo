@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Connect platforms – Vendo</title>
+  <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+<header id="nav"></header>
+<main class="container">
+  <h1>Connect your ad platforms</h1>
+  <p class="muted" style="max-width:760px">Vendo connects to each platform with <strong>OAuth</strong>: you sign in on the platform's own site and approve access, and Vendo never sees your password. Not ready for real money yet? Choose <strong>sandbox</strong> to practise with a simulated account.</p>
+  <div id="flash"></div>
+  <div class="grid grid-2" id="platforms"></div>
+  <div class="card" style="margin-top:24px">
+    <h2>🎓 What does "connecting" actually do?</h2>
+    <ol>
+      <li>You click <em>Connect</em>. Vendo sends you to the platform with a one-time <code>state</code> code (protects against forged requests).</li>
+      <li>You approve the permissions Vendo asks for (manage ads, read reports).</li>
+      <li>The platform redirects back with an authorization code, and Vendo exchanges it server-side for an <strong>access token</strong>.</li>
+      <li>The token is encrypted (AES-256-GCM) and stored. You can disconnect at any time here, and revoke access in the platform's settings too.</li>
+    </ol>
+    <p class="muted">You need an <strong>ad account</strong> with a payment method on each platform. Ads are billed by the platform directly. Vendo never handles your payments.</p>
+  </div>
+</main>
+<script type="module" src="/js/connect.js"></script>
+</body>
+</html>

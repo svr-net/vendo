@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>New campaign – Vendo</title>
+  <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+<header id="nav"></header>
+<main class="container">
+  <div class="row spread">
+    <h1 id="title">Create a campaign</h1>
+    <button class="btn btn-sm" id="reset">Start over</button>
+  </div>
+  <nav class="stepper" id="stepper"></nav>
+  <div class="wizard">
+    <section class="card" id="step"></section>
+    <aside class="coach">
+      <div class="card">
+        <h3>🎓 Coach</h3>
+        <div id="coach"></div>
+      </div>
+      <div class="card" id="check-card">
+        <h3>✅ Readiness</h3>
+        <div id="check"><small class="muted">Checks appear as you fill in the form.</small></div>
+      </div>
+    </aside>
+  </div>
+</main>
+<script type="module" src="/js/wizard.js"></script>
+</body>
+</html>

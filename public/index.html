@@ -6,6 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Vendo – advertising made understandable</title>
   <meta name="description" content="Learn online advertising and launch real campaigns on Meta, Google, TikTok, LinkedIn and Pinterest from one simple place.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=JetBrains+Mono:wght@400;600&display=swap">
   <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
@@ -13,65 +16,92 @@
 <main class="container">
   <section class="hero">
     <div>
-      <span class="badge brand">Advertising for everyone</span>
-      <h1 style="margin-top:12px">Learn how online ads work.<br>Then launch your own — everywhere at once.</h1>
-      <p class="lead">Vendo explains advertising in plain language and turns one simple brief into real campaigns on Facebook &amp; Instagram, Google Search, TikTok, LinkedIn and Pinterest. Practise risk-free in sandbox mode, then go live when you're ready.</p>
-      <div class="row">
-        <a class="btn btn-primary btn-lg" href="campaigns/new">Create a campaign</a>
+      <span class="badge brand">✦ Advertising for everyone</span>
+      <h1>Launch ads everywhere.<br><span class="gradient-text">Understand every step.</span></h1>
+      <p class="lead">Vendo turns one simple brief into real campaigns on Facebook &amp; Instagram, Google Search, TikTok, LinkedIn and Pinterest, and explains everything it does in plain language.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary btn-lg" href="campaigns/new">Create a campaign →</a>
         <a class="btn btn-lg" href="learn">Start learning</a>
       </div>
+      <div class="hero-proof">
+        <div><strong>5</strong>ad platforms</div>
+        <div><strong>10</strong>bite-size lessons</div>
+        <div><strong>$0</strong>to practise in sandbox</div>
+      </div>
     </div>
-    <div class="card">
-      <h3>One brief → five platforms</h3>
-      <p class="muted">You describe your goal, budget, audience and ad once. Vendo translates it into each platform's own structure:</p>
-      <div class="table-wrap"><table class="forecast-table">
-        <thead><tr><th>Platform</th><th>What Vendo creates</th></tr></thead>
-        <tbody>
-          <tr><td><span class="pill-meta">●</span> Meta</td><td>Campaign → Ad set → Creative → Ad</td></tr>
-          <tr><td><span class="pill-google">●</span> Google Ads</td><td>Budget → Search campaign → Ad group → Keywords → Responsive ad</td></tr>
-          <tr><td><span class="pill-tiktok">●</span> TikTok</td><td>Video → Identity → Campaign → Ad group → Ad</td></tr>
-          <tr><td><span class="pill-linkedin">●</span> LinkedIn</td><td>Campaign group → Campaign → Sponsored post → Creative</td></tr>
-          <tr><td><span class="pill-pinterest">●</span> Pinterest</td><td>Pin → Campaign → Ad group → Ad</td></tr>
-        </tbody>
-      </table></div>
-      <p class="hint">Everything is created <strong>paused</strong> by default. You decide when money starts being spent.</p>
+    <div class="hero-visual">
+      <div class="float-stat a">Click-through rate<strong>2.4% ↑</strong></div>
+      <div class="card glow">
+        <div class="mock-head"><span></span><span></span><span></span></div>
+        <div class="row spread" style="margin-bottom:14px">
+          <div><small>One brief</small><h3 style="margin:2px 0 0">Spring sale · $100/day</h3></div>
+          <span class="badge good"><span class="dot"></span>Ready</span>
+        </div>
+        <div class="flow" id="flow"></div>
+        <p class="hint" style="margin:14px 0 0">Everything is created <strong>paused</strong>. You decide when money starts being spent.</p>
+      </div>
+      <div class="float-stat b">Cost per click<strong>$0.84</strong></div>
     </div>
   </section>
 
+  <div class="logos" id="logos"></div>
+
   <section class="section">
-    <h2>How it works</h2>
+    <div class="section-head">
+      <span class="eyebrow">How it works</span>
+      <h2 style="font-size:clamp(1.7rem,3vw,2.4rem);margin-top:8px">From zero to live campaign in four steps</h2>
+      <p>No jargon and no guesswork. A coach guides you, and every number comes with an explanation.</p>
+    </div>
     <div class="steps">
-      <div class="card"><h3>Learn the basics</h3><p class="muted">Short lessons on goals, budgets, targeting, creative and metrics, with calculators and quizzes.</p></div>
-      <div class="card"><h3>Connect your accounts</h3><p class="muted">Sign in to each ad platform securely (OAuth). Or use sandbox mode to practise with simulated accounts.</p></div>
-      <div class="card"><h3>Build &amp; preview</h3><p class="muted">A guided wizard with a coach, live ad previews, budget forecasts and checks against each platform's rules.</p></div>
-      <div class="card"><h3>Launch &amp; improve</h3><p class="muted">Launch in one click, see every API call Vendo makes, track results and get plain-language advice.</p></div>
+      <div class="card hover"><h3>Learn the basics</h3><p class="muted" style="margin:0">Short lessons on goals, budgets, targeting, creative and metrics, with calculators and quizzes.</p></div>
+      <div class="card hover"><h3>Connect your accounts</h3><p class="muted" style="margin:0">Secure sign-in to each platform, or a sandbox to practise with simulated accounts.</p></div>
+      <div class="card hover"><h3>Build &amp; preview</h3><p class="muted" style="margin:0">A guided wizard with live ad previews, budget forecasts and checks against every platform's rules.</p></div>
+      <div class="card hover"><h3>Launch &amp; improve</h3><p class="muted" style="margin:0">One click to launch, then results with plain-language advice on what to do next.</p></div>
     </div>
   </section>
 
   <section class="section">
-    <h2>Which platform is right for you?</h2>
+    <div class="section-head">
+      <span class="eyebrow">Platforms</span>
+      <h2 style="font-size:clamp(1.7rem,3vw,2.4rem);margin-top:8px">Which platform is right for you?</h2>
+      <p>Each one reaches people in a different mindset. Vendo recommends a budget split for your goal.</p>
+    </div>
     <div class="grid grid-5" id="fit"></div>
   </section>
 
-  <section class="section card">
-    <div class="row spread">
-      <div>
-        <h2>Transparent by design</h2>
-        <p class="muted" style="max-width:720px">Before launch, Vendo shows the exact API requests it will send to each platform, with an explanation of each one. You learn how professional ad tools work while you build your campaign, and nothing is hidden.</p>
-      </div>
-      <a class="btn btn-primary" href="campaigns/new">Try it in sandbox mode</a>
+  <section class="section">
+    <div class="grid grid-3">
+      <div class="card hover"><div class="feature-icon">🔍</div><h3>Transparent by design</h3><p class="muted" style="margin:0">See the exact API requests Vendo sends to each platform, with an explanation for each one.</p></div>
+      <div class="card hover"><div class="feature-icon">🛡️</div><h3>Safe by default</h3><p class="muted" style="margin:0">Campaigns start paused, live activation asks first, and a failed launch resumes without duplicating anything.</p></div>
+      <div class="card hover"><div class="feature-icon">📈</div><h3>Advice, not just numbers</h3><p class="muted" style="margin:0">"Low click-through rate: test a new image." Results come with clear next steps.</p></div>
     </div>
+  </section>
+
+  <section class="cta-band">
+    <h2>Ready to run your first campaign?</h2>
+    <p>Try it in sandbox mode. No ad account, no credit card, no risk.</p>
+    <a class="btn btn-lg" href="campaigns/new">Create a campaign →</a>
   </section>
 </main>
 <footer class="site">Vendo · Open-source advertising engine · Not affiliated with Meta, Google, TikTok, LinkedIn or Pinterest.</footer>
 <script type="module">
   import { mountNav, reference, platformIcon, esc } from './js/common.js';
   mountNav('home');
+  const CHAINS = {
+    meta: ['Campaign', 'Ad set', 'Creative', 'Ad'],
+    google: ['Budget', 'Campaign', 'Keywords', 'Ad'],
+    tiktok: ['Video', 'Campaign', 'Ad group', 'Ad'],
+    linkedin: ['Group', 'Campaign', 'Post', 'Creative'],
+    pinterest: ['Pin', 'Campaign', 'Ad group', 'Ad'],
+  };
+  document.getElementById('flow').innerHTML = Object.entries(CHAINS).map(([p, chain]) =>
+    `<div class="flow-row"><span class="mini">${platformIcon(p)}</span><div class="chain">${chain.map((c) => `<span>${c}</span>`).join('<i>→</i>')}</div></div>`).join('');
   reference().then((ref) => {
+    document.getElementById('logos').innerHTML = ref.platforms.map((p) => `<span class="mini">${platformIcon(p.id)}${esc(p.name)}</span>`).join('');
     document.getElementById('fit').innerHTML = ref.platforms.map((p) => `
-      <div class="card"><div class="row">${platformIcon(p.id)}<div><strong>${esc(p.name)}</strong><br><small>${esc(p.products)}</small></div></div>
-      <p style="margin-top:12px;font-size:.93rem">${esc(ref.fit[p.id])}</p>
-      <small>Avg. cost per click ≈ $${ref.benchmarks[p.id].cpc}</small></div>`).join('');
+      <div class="card hover fit-card">${platformIcon(p.id)}<strong>${esc(p.name)}</strong><br><small>${esc(p.products)}</small>
+      <p style="margin:14px 0;font-size:.9rem;color:var(--text-2)">${esc(ref.fit[p.id])}</p>
+      <span class="badge">Avg. CPC ≈ $${ref.benchmarks[p.id].cpc}</span></div>`).join('');
   });
 </script>
 </body>
